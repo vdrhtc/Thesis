@@ -1,6 +1,6 @@
 \documentclass{article}
 	\usepackage[margin=1in]{geometry}
-	\usepackage[hidelinks, linktoc=all]{hyperref}
+	\usepackage[hidelinks, linktoc=all, pagebackref]{hyperref}
 	\usepackage{indentfirst}
     \usepackage[russian]{babel}
     \usepackage{subcaption}
@@ -25,13 +25,24 @@
     % The hyperref package gives us a pdf with properly built
     % internal navigation ('pdf bookmarks' for the table of contents,
     % internal cross-reference links, web links for URLs, etc.)
-    \usepackage{hyperref}
     \usepackage{longtable} % longtable support required by pandoc >1.10
-    
+
 
 	\author{Федоров Глеб, 125}
  	\title{Диплом}
 
+\renewcommand*{\backreftwosep}{ и~}
+\renewcommand*{\backreflastsep}{ и~}
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{%
+\ifcase #1 %
+\relax%
+\or
+(cслыка на стр. [#2])%
+\else
+(cслыки на стр. [#2])%
+\fi
+}
 \numberwithin{equation}{section}
 \setcounter{tocdepth}{4}
 \begin{document}
@@ -101,25 +112,25 @@ I_c = \frac{\pi\Delta(T)}{2eR_n}\th\left(\frac{\Delta(T)}{2k_bT}\right),
 Принципиальная схема изображена на Рис. \ref{fig:RSCJ}. В случае, когда ток через систему не превышает критического $I_c$, резистор на схеме может быть опущен. В силу параллельности соединения выполнено также соотношение $\displaystyle \frac{\hbar}{2e}\frac{\partial\varphi}{\partial t} = U_C$ между напряжениями на переходе и на конденсаторе, которое устанавливает аналогию между неидеальным переходом и колебательным контуром с нелинейной индуктивностью.
 
 В рамках RCSJ-модели энергия перехода состоит из энергии, запасенной в нелинейной индуктивности идеального перехода, и энергии конденсатора:
-\begin{align}
-E &= E_{ind}+E_{cap}  \label{eq:JJenrj1}\\
-E_{ind} &= \int I_JV_J\, dt = I_c \frac{\hbar}{2e}\int_0^T \sin(\phi(t))\frac{d\phi(t)}{dt}dt \\
-&= E_J \int_0^\varphi \sin\phi\, d\phi = E_J [1-\cos\varphi] \notag\\
-E_{cap} &= \frac{1}{2}C U_C^2 = \frac{1}{2} C \left(\frac{\Phi_0}{2\pi}\right)^2 \dot \varphi^2 = 
-E_C \dot \varphi^2.
+\begin{gather}
+E = E_{ind}+E_{cap}  \label{eq:JJenrj1}\\
+E_{ind} = \int I_JV_J\, dt = I_c \frac{\hbar}{2e}\int_0^T \sin(\phi(t))\frac{d\phi(t)}{dt}dt \notag\\
+= E_J \int_0^\varphi \sin\phi\, d\phi = E_J [1-\cos\varphi] \\
+E_{cap} = \frac{1}{2}C U_C^2 = \frac{1}{2} C \left(\frac{\Phi_0}{2\pi}\right)^2 \dot \varphi^2 = 
+\frac{\hbar^2}{4E_C} \dot \varphi^2,\ E_C = \frac{(2e)^2}{2C}.
 \label{eq:JJenrj2}
-\end{align}
+\end{gather}
 \subsection{Фазо-потоковое соотношение}
 Рассмотрим замкнутый сверхпроводящее кольцо конечной толщины, быть может, прерванный конечным числом джозефсоновских переходов $\{J_1..J_n\}$. Рассмотрим применительно к данному случаю уравнение (\ref{eq:lond2}). Проведем контур $C$ внутри кольца так, чтобы он нигде не приближался к стенкам на расстояние, меньшее глубины проникновения магнитного поля (Рис. \ref{fig:ring}). Тогда сверхток на всей его длине будет равен нулю, и, проинтегрировав по нему (\ref{eq:lond2}), мы получим следующее равенство:
 \begin{equation}
 \oint\displaylimits_C \mathbf{A}d\mathbf{l} = \frac{\Phi_0}{2\pi}\oint\displaylimits_C \nabla \theta d \mathbf{l} \notag.
 \end{equation}
 Руководствуясь Рис. \ref{fig:ring}, соображениями однозначности волновой функции (\ref{eq:glwf}) при обходе вокруг контура и теоремой Стокса для $\operatorname{rot} \mathbf{A}$, можем написать:
-\begin{align}
-\Phi &= \frac{\Phi_0}{2\pi}\left(\sum_i \varphi_n + 2\pi k\right) \notag \\
-\sum_i \varphi_n &= 2\pi\left(\frac{\Phi}{\Phi_0} - k\right),\ k\in \mathcal{Z}.
+\begin{gather}
+\Phi = \frac{\Phi_0}{2\pi}\left(\sum_i \varphi_n + 2\pi k\right) \notag \\
+\sum_i \varphi_n = 2\pi\left(\frac{\Phi}{\Phi_0} - k\right),\ k\in \mathcal{Z}.
 \label{eq:phsflx}
-\end{align}
+\end{gather}
 
 \begin{figure}[h]
 \centering
@@ -137,7 +148,7 @@ Flux-кубит, или потоковый трехконтактный свер
 \begin{figure}
 \centering
 \includegraphics[width=0.4\textwidth]{Pictures/qubit}
-\caption{Принципиальная схема Flux-кубита в рамках RSCJ-модели. Два из трех переходов по площади одинаковы, площадь третьего по сравнению с ними в $\alpha$ раз отличается (параметры отличаются в то же число раз согласно формулам для емкости конденсатора и (\ref{eq:Ic})). $\Phi$ -- поток, пронизывающий контур. Резисторы не изображены, так как рабочий ток переходов меньше $I_c$}
+\caption{Принципиальная схема Flux-кубита в рамках RCSJ-модели. Два из трех переходов по площади одинаковы, площадь третьего по сравнению с ними в $\alpha$ раз отличается (параметры отличаются в то же число раз согласно формулам для емкости конденсатора и (\ref{eq:Ic})). $\Phi$ -- поток, пронизывающий контур. Резисторы не изображены, так как рабочий ток переходов меньше $I_c$}
 \label{fig:qubit}
 \end{figure}
 
@@ -147,24 +158,26 @@ Flux-кубит, или потоковый трехконтактный свер
 \varphi_1 + \varphi_2 + \varphi_3 = 2\pi\left(\frac{\Phi}{\Phi_0} - k\right),\ k\in \mathcal{Z}.
 \label{eq:qubit_phsflx}
 \end{equation}
-Таким образом, в контуре на Рис. \ref{fig:qubit} остаются независимыми только две разности фаз из трех. Введя их в качестве обобщенных координат, можно понять, что является аналогом кинетической, а что -- потенциальной энергии системы. В уравнениях (\ref{eq:JJenrj1})-(\ref{eq:JJenrj2}) энергия перехода зависит непосредственно от $\varphi$, а емкостная от $\dot \varphi$. Таким образом, переход запасает потенциальную, а емкость кинетическую энергию. Энергия магнитного поля, возникающего при течении тока в кольце, считается малой в силу малости геометрической индуктивности кубита по сравнению с джозефсоновской индуктивностью переходов\cite{Orlando1999}. Теперь можно записать лагранжиан системы, используя все те же уравнения (\ref{eq:JJenrj1})-(\ref{eq:JJenrj2}) и выражая разность фаз $\varphi_3$ отличающегося перехода через разности фаз $\varphi_1$ и $\varphi_2$ одинаковых переходов при помощи (\ref{eq:qubit_phsflx}):
-\begin{align*}
-\mathcal{L} &= \mathcal{T}-\mathcal{U}, \\
-\mathcal{T} &= E_C =\frac{1}{2}\sum_{i=1}^3 C_i V_i^2 = \frac{1}{2} \left(\frac{\Phi_0}{2\pi}\right)^2 \left[C(\dot \varphi_1)^2 + \alpha C \left(\dot \varphi_1 + \dot\varphi_2\right)^2 + C(\dot \varphi_2)^2\right] \notag \\
-&= \frac{1}{2}\left(\frac{\Phi_0}{2\pi}\right)^2 \vec{\dot \varphi}^T C \left(\begin{matrix}
+Таким образом, в контуре на Рис. \ref{fig:qubit} остаются независимыми только две разности фаз из трех. Введя их в качестве обобщенных координат, можно понять, что является аналогом кинетической, а что -- потенциальной энергии системы. В уравнениях (\ref{eq:JJenrj1})-(\ref{eq:JJenrj2}) энергия перехода зависит непосредственно от $\varphi$, а емкостная от $\dot \varphi$. Таким образом, переход запасает потенциальную, а емкость кинетическую энергию. Энергия магнитного поля, возникающего при течении тока в кольце, считается малой в силу малости геометрической индуктивности кубита по сравнению с джозефсоновской индуктивностью переходов (в противоположном случае ситуация значительно усложняется \cite{Robertson2006}). Теперь можно записать лагранжиан системы, используя все те же уравнения (\ref{eq:JJenrj1})-(\ref{eq:JJenrj2}) и выражая разность фаз $\varphi_3$ отличающегося перехода через разности фаз $\varphi_1$ и $\varphi_2$ одинаковых переходов при помощи (\ref{eq:qubit_phsflx}):
+\begin{gather*}
+\mathcal{L} = \mathcal{T}-\mathcal{U}, \\
+\mathcal{T} = E_{cap} =\frac{1}{2}\sum_{i=1}^3 C_i V_i^2 = \frac{1}{2} \left(\frac{\Phi_0}{2\pi}\right)^2 \left[C(\dot \varphi_1)^2 + \alpha C \left(\dot \varphi_1 + \dot\varphi_2\right)^2 + C(\dot \varphi_2)^2\right] \\
+= \frac{1}{2}\left(\frac{\Phi_0}{2\pi}\right)^2 \left(\begin{matrix}
+\dot\varphi_1 &\dot\varphi_2
+\end{matrix}\right) C \left(\begin{matrix}
 1+\alpha & \alpha \\
 \alpha & 1+\alpha
 \end{matrix}
 \right)
-\vec{\dot \varphi},\ \vec{\dot\varphi} = \left(\begin{matrix}
+\left(\begin{matrix}
 \dot\varphi_1 \\
 \dot\varphi_2
-\end{matrix}\right), \\
-\mathcal{U} &= E_J\left[2+\alpha + \cos\varphi_1 + \cos\varphi_2 + \alpha \cos\left(2\pi\frac{\Phi}{\Phi_0} - \varphi_1 - \varphi_2 \right)\right].
-\end{align*}
+\end{matrix}\right),\\
+\mathcal{U} = E_{ind} = E_J\left[2+\alpha + \cos\varphi_1 + \cos\varphi_2 + \alpha \cos\left(2\pi\frac{\Phi}{\Phi_0} - \varphi_1 - \varphi_2 \right)\right].
+\end{gather*}
 Строить гамильтониан системы из такого лагранжиана не очень удобно, поэтому предварительно произведем замену координат $\displaystyle \phi = \frac{\varphi_1 + \varphi_2}{2},\ \theta = \frac{\varphi_1 - \varphi_2}{2}$:
-\begin{align*}
-\mathcal{T} & \overset {\varphi_1, \varphi_2 \rightarrow \phi, \theta}{=}
+\begin{gather}
+\mathcal{T}  \overset {\varphi_1, \varphi_2 \rightarrow \phi, \theta}{=}
 C\left(\frac{\Phi_0}{2\pi}\right)^2 (\begin{matrix}
 \dot \phi & \dot \theta
 \end{matrix})
@@ -175,23 +188,65 @@ C\left(\frac{\Phi_0}{2\pi}\right)^2 (\begin{matrix}
 \right)
 \left(\begin{matrix}
 \dot \phi \\ \dot \theta
-\end{matrix}\right), \\
-\mathcal{U} &\overset {\varphi_1, \varphi_2 \rightarrow \phi, \theta}{=} E_J\left[2+\alpha - 2\cos(\phi)\cos(\theta) - \alpha\cos\left(2\pi\frac{\Phi}{\Phi_0} -2\phi\right)\right].
-\end{align*}
+\end{matrix}\right), \notag
+\\
+\mathcal{U} \overset {\varphi_1, \varphi_2 \rightarrow \phi, \theta}{=} E_J\left[2+\alpha - 2\cos(\phi)\cos(\theta) - \alpha\cos\left(2\pi\frac{\Phi}{\Phi_0} -2\phi\right)\right].
+\label{eq:U_qb}
+\end{gather}
 Теперь, стандартным образом вводя обобщенный импульс 
-$\displaystyle \vec p = \left(\begin{matrix}p_\phi\\p_\theta\end{matrix}\right) = \left(\begin{matrix}\frac{\partial\mathcal{L}}{\partial\dot\phi}\\\frac{\partial\mathcal{L}}{\partial\dot\theta}\end{matrix}\right)$ и производя преобразование Лежандра, получим итоговый гамильтониан системы:
-\begin{align*}
-\mathcal{H} = \frac{p_\phi^2}{2M_\phi} &+ \frac{p_\theta^2}{2M_\theta}+ E_J\left[2+\alpha - 2\cos(\phi)\cos(\theta) - \alpha\cos\left(2\pi\frac{\Phi}{\Phi_0} -2\phi\right)\right], \\
-M_\phi &= 2C\left(\frac{\Phi_0}{2\pi}\right)^2(1+2\alpha),\ M_\theta = 2C\left(\frac{\Phi_0}{2\pi}\right)^2.
-\end{align*}
+$\displaystyle \mathbf{p}^T = \left(\begin{matrix}p_\phi & p_\theta\end{matrix}\right) = \left(\begin{matrix}\frac{\partial\mathcal{L}}{\partial\dot\phi} & \frac{\partial\mathcal{L}}{\partial\dot\theta}\end{matrix}\right)$ и производя преобразование Лежандра, получим итоговый гамильтониан системы:
+\begin{gather*}
+\mathcal{H} = \frac{p_\phi^2}{2M_\phi} + \frac{p_\theta^2}{2M_\theta}+ E_J\left[2+\alpha - 2\cos(\phi)\cos(\theta) - \alpha\cos\left(2\pi\frac{\Phi}{\Phi_0} -2\phi\right)\right], \\
+M_\phi = 2C\left(\frac{\Phi_0}{2\pi}\right)^2(1+2\alpha),\ M_\theta = 2C\left(\frac{\Phi_0}{2\pi}\right)^2.
+\end{gather*}
 Далее, осуществляя переход к операторному виду квантовой механики, можно получить оператор Гамильтона для сверхпроводящего потокового кубита в терминах исключительно $E_C$ и $E_J$:
-\begin{align}
-\hat{\mathcal{H}} = E_C\left[-\frac{2}{1 + 2\alpha}\frac{\partial^2}{\partial\phi^2} 
-- 2\frac{\partial^2}{\partial\theta^2}\right]+ E_J\left[2+\alpha - 2\cos(\phi)\cos(\theta) - \alpha\cos\left(2\pi\frac{\Phi}{\Phi_0} -2\phi \right)\right].
-\end{align}
+\begin{gather}
+\hat{\mathcal{H}} = E_C\left[-\frac{1}{2(1 + 2\alpha)}\frac{\partial^2}{\partial\phi^2} 
+- \frac{1}{2}\frac{\partial^2}{\partial\theta^2}\right]+ E_J\left[2+\alpha - 2\cos(\phi)\cos(\theta) - \alpha\cos\left(2\pi\frac{\Phi}{\Phi_0} -2\phi \right)\right].
+\label{eq:hamiltonian}
+\end{gather}
+
+\subsection{Квантово-механический анализ}
+
+\paragraph{Анализ потенциала.} Прежде всего рассмотрим потенциал $\mathcal{U}(\phi, \theta)$. На Рис. \ref{fig:U_fq} представлены графики, демонстрирующие его структуру в случае $\Phi=0.5\Phi_0$. На Рис. \ref{fig:U_fq}~(\subref{fig:U3d}) можно видеть, что потенциал $2\pi$-периодичен по каждой из переменных $\phi$ и $\theta$ и представляет собой бесконечную решетку из двойных ям, отделенных барьерами по диагонали. Каждая двойная яма в свою очередь делится на две части меньшим барьером. Его высота, как видно из Рис. \ref{fig:U_fq}~(\subref{fig:U_cut}), определяется параметром $\alpha$. Для того, чтобы структура оставалась подобной оной на Рис. \ref{fig:U_fq}~(\subref{fig:U3d}), требуется, чтобы $\alpha\in(0.5,\ 1)$: при нарушении этого условия либо совсем пропадает внутренний барьер, либо внешний барьер сравнивается с внутренним по высоте, и ямы перестают быть хорошо отделены друг от друга (Рис. \ref{fig:U_fq}~(\subref{fig:U_cut2})). Минимумы $\mathcal{U}$ находятся в точках $\theta=\pi k,\ \phi=\pm\arccos\frac{1}{2\alpha}+\pi n,\ k,\ n\in\mathcal{Z}$. При отклонении потока от $0.5\Phi_0$ происходит перекос двойных ям : в зависимости от знака отклонения одна половина становится мельче, а другая глубже (Рис. \ref{fig:U_fq}~(\subref{fig:U3d2})). 
 
 
 
+\begin{figure}[p]
+\begingroup
+\captionsetup[subfigure]{width=0.95\textwidth}
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+\centering
+\includegraphics[height = .8\textwidth]{Pictures/qubit_potential}
+\caption{Трехмерное изображение потенциала при $\Phi=0.5\Phi_0,\ \alpha=0.8$. Можно видеть $2\pi$-периодическую решетку из двойных ям}
+\label{fig:U3d}
+\end{subfigure}~
+\begin{subfigure}[t]{0.49\linewidth}
+\centering
+\includegraphics[height = .8\textwidth]{Pictures/qubit_potential2}
+\caption{При отклонении потока от $0.5\Phi_0$ появляется перекос внутри двойных ям, одна половина становится глубже, а другая мельче в зависимости от знака отклонения $\Delta\Phi$. Здесь $\Delta\Phi=-0.05\Phi_0$}
+\label{fig:U3d2}
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+\centering
+\includegraphics[height = 0.8\textwidth]{Pictures/qubit_potential_cut}
+\caption{Срез потенциала при $\Phi=0.5\Phi_0$ по направлению $\theta = \pi$ (барьер внутри ям) в зависимости от $\alpha$. При $\alpha = 0.5$ этот барьер пропадает, при $\alpha=1$ он сравнивается с барьером между ямами (см. (\subref{fig:U_cut2}))}
+\label{fig:U_cut}\quad
+\end{subfigure}
+\begin{subfigure}[t]{0.49\linewidth}
+\centering
+\includegraphics[height = 0.8\textwidth]{Pictures/qubit_potential_cut2}
+\caption{Срез потенциала при $\Phi=0.5\Phi_0$ по направлению $\phi = \left(1 - \frac{2}{\pi}\arccos
+\frac{1}{2\alpha}\right)\theta+\arccos\frac{1}{2\alpha}$ (барьер между ямами) в зависимости от $\alpha$. Здесь крайние точки отвечают минимумам $\mathcal{U}$ при $\theta=0\ (\pi),\ \phi=\arccos
+\frac{1}{2\alpha}\ \left(\pi - \arccos\frac{1}{2\alpha}\right)$}
+\label{fig:U_cut2}
+\end{subfigure}
+\endgroup
+\caption{Графическое изображение периодического потенциала Flux-кубита в зависимости от относительного размера отличающегося перехода $\alpha$ и пронизывающего потока $\Phi$}
+\label{fig:U_fq}
+\end{figure} 
+\paragraph{Стационарные состояния.} Прежде, чем начинать поиск стационарных состояний для гамильтониана (\ref{eq:hamiltonian}), важно не упустить одну особенность. Строго говоря, в силу того, что потенциал (\ref{eq:U_qb}) является периодическим, решениями уравнения Шредингера будут являться \textit{блоховские функции}, а спектр энергий будет иметь зонную структуру. Таким образом, как это ни удивительно, один Flux-кубит представляет собой модель частицы в идеальной периодической решетке двумерного твердого тела. В силу вышесказанного, самый смысл стационарных решений Для нахождения стационарных состояний гамильтониана (\ref{eq:hamiltonian}) мы воспользуемся периодичностью потенциала.
 \newpage
 \part{Экспериментальная часть}
 \part{Результаты}
