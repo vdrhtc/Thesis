@@ -1,0 +1,31 @@
+\documentclass{beamer}% http://ctan.org/pkg/beamer
+%\url{http://tex.stackexchange.com/q/31031/86}
+\begin{document}
+\begin{frame}<1>[label=again]
+  \frametitle{The Infamous Disappearing Text}
+
+Here is a frame, it's a bit \alert<2-3>{boring}.
+
+It's so boring, we'll see it \only<-3>{{\color<2-3>{gray}twice}}.
+
+\only<3>{But the second time, we'll try to make it more interesting by making some of those words change colour.}
+
+\only<5>{The third time, we'll wave a magic wand to make all the gray words disappear.}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Some Comments}
+This frame is perhaps even more so.
+\end{frame}
+
+\againframe<2-3>{again}
+
+\begin{frame}
+\frametitle{Some Comments}
+Will this tedium ever end?
+\end{frame}
+
+
+\end{document}
+

@@ -15,7 +15,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.5 r10040"
-   sodipodi:docname="Новый документ 1">
+   sodipodi:docname="кубит.svg"
+   inkscape:export-filename="/home/gleb/Документы/Диплом/Собсно диплом/Pictures/qubit.png"
+   inkscape:export-xdpi="150"
+   inkscape:export-ydpi="150">
   <defs
      id="defs4">
     <linearGradient
@@ -34,9 +37,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4676941"
-     inkscape:cx="476.48754"
-     inkscape:cy="505.84036"
+     inkscape:zoom="0.52263376"
+     inkscape:cx="526.18109"
+     inkscape:cy="522.98901"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -51,7 +54,12 @@
      inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
-     inkscape:snap-nodes="true" />
+     inkscape:snap-nodes="true">
+    <sodipodi:guide
+       orientation="0,1"
+       position="431.28878,505.55494"
+       id="guide3117" />
+  </sodipodi:namedview>
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -303,5 +311,57 @@
        id="path6265"
        inkscape:connector-curvature="0"
        transform="translate(0,308.2677)" />
-  </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3041"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:STIX;font-style:italic;font-weight:normal;font-size:9px;line-height:125%;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:STIX Italic;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr"><flowRegion
+         id="flowRegion3043"><rect
+           id="rect3045"
+           width="41.561794"
+           height="21.802908"
+           x="418.34329"
+           y="173.13081" /></flowRegion><flowPara
+         id="flowPara3047"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3049"
+       style="font-size:9px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:STIX;-inkscape-font-specification:STIX Italic"
+       transform="translate(157.10832,311.06343)"><flowRegion
+         id="flowRegion3051"><rect
+           id="rect3053"
+           width="38.631001"
+           height="29.277603"
+           x="395.85907"
+           y="163.59204" /></flowRegion><flowPara
+         id="flowPara3059"
+         style="font-size:20px;font-style:normal;-inkscape-font-specification:STIX">φ<flowSpan
+   style="font-size:65.00091553000000033%;baseline-shift:sub;font-style:normal;-inkscape-font-specification:STIX"
+   id="flowSpan3063">3</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3049-1"
+       style="font-size:9px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:STIX;-inkscape-font-specification:STIX Italic"
+       transform="translate(48.887687,373.51564)"><flowRegion
+         id="flowRegion3051-3"><rect
+           id="rect3053-0"
+           width="38.631001"
+           height="29.277603"
+           x="395.85907"
+           y="163.59204" /></flowRegion><flowPara
+         id="flowPara3059-3"
+         style="font-size:20px;font-style:normal;font-weight:normal;-inkscape-font-specification:STIX">φ<flowSpan
+   style="font-size:65%;baseline-shift:sub;font-style:normal;-inkscape-font-specification:STIX"
+   id="flowSpan3122">1</flowSpan></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3049-2"
+       style="font-size:9px;font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:STIX;-inkscape-font-specification:STIX Italic"
+       transform="translate(163.49819,372.86462)"><flowRegion
+         id="flowRegion3051-7"><rect
+           id="rect3053-6"
+           width="38.631001"
+           height="29.277603"
+           x="395.85907"
+           y="163.59204" /></flowRegion><flowPara
+         id="flowPara3059-2"
+         style="font-size:20px;font-style:normal;font-weight:normal;-inkscape-font-specification:STIX">φ<flowSpan
+   style="font-size:65%;baseline-shift:sub;font-style:normal;-inkscape-font-specification:STIX"
+   id="flowSpan3124">2</flowSpan></flowPara></flowRoot>  </g>
 </svg>
