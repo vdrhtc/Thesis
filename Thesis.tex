@@ -4,6 +4,7 @@
 	\usepackage{indentfirst}
     \usepackage[russian]{babel}
     \usepackage{subcaption}
+    \captionsetup[subfigure]{justification=centering}
    	\usepackage[superscript,biblabel]{cite}
     \usepackage[font=small,labelfont=bf]{caption}
     \usepackage{abstract}
@@ -433,9 +434,9 @@ $\mathcal{\hat D}$ - линдбладовский супероператор. К
 где $\omega_q, \omega_k$ -- энергии кубита и мод, $\hat \sigma^{\pm}$ -- повышающий и понижающий операторы кубита, $\hat \sigma^+ = \hat{\sigma}^{-^\dag} = \ket{e}\bra{g}$, а $g_k$ -- константы связи кубита с внешним полем. Последняя часть возникает из взаимодействия квантованного поля каждой моды, которое пропорционально $\hat a_k^+ + \hat a_k$, с кубитом (через оператор $\hat \sigma_x = \hat \sigma^-+  \hat \sigma^+ $, см. \eqref{eq:trunc_hamiltonian}) в первом порядке теории возмущений, т.е. $\mathcal{\hat H}_{i_k} \propto \rbrkt{\sigma^-+  \hat \sigma^+}\otimes\rbrkt{\hat a_k^+ + \hat a_k}\overset{\mathbb{I}\, ord.}{\rightarrow} (\hat \sigma^-\otimes \hat a_k^\dag +  \hat \sigma^+ \otimes \hat a_k)$. Это оправданно, так как мы полагаем связи, т.е. $g_k$, малыми. Исходя из такой модели при $T \approx 0$ получаем\cite{carmichael1999} следующее уравнение эволюции:
 \begin{equation}
 i \hbar \frac{\partial}{\partial t}\hat \rho_q = \sbrkt{\mathcal{\hat H}_q, \hat \rho_q} +
-\gamma_{rel} (\hat \sigma^- \hat \rho_q \hat \sigma^+ - \frac{1}{2} \left\{ \hat\sigma^+\hat\sigma^-, \hat \rho_q \right\} ),
+\gamma (\hat \sigma^- \hat \rho_q \hat \sigma^+ - \frac{1}{2} \left\{ \hat\sigma^+\hat\sigma^-, \hat \rho_q \right\} ),
 \end{equation}
-где $\gamma_{rel}$ получается в процессе вычисления из \eqref{eq:rel_model}, однако на практике подбирается. Динамику данного уравнения мы обсудим несколько позже.
+где $\gamma$ получается в процессе вычисления из \eqref{eq:rel_model}, однако на практике подгоняется к экспериментальным данным. Динамику данного уравнения мы обсудим несколько позже.
 
 \subsection{Дефазировка}
 
@@ -454,12 +455,36 @@ i \hbar \frac{\partial}{\partial t}\hat \rho_q = \sbrkt{\mathcal{\hat H}_q, \hat
 \gamma_\phi (\hat \sigma^z \hat \rho_q \hat \sigma^z - \frac{1}{2} \left\{ \hat\sigma^z\hat\sigma^z, \hat \rho_q \right\} ) \equiv \sbrkt{\mathcal{\hat H}_q, \hat \rho_q} +
 \gamma_\phi (\hat \sigma^z \hat \rho_q \hat \sigma^z -\hat \rho_q ),
 \end{equation}
-где последнее равенство верно в силу того, что $\hat \sigma_z^2 \equiv \mathbbm{\hat 1}$. Понятно, что объединив гамильтонианы \eqref{eq:rel_model} и \eqref{eq:deph_model}, мы получим итоговое уравнение с диссипативной частью $\gamma_{rel}\mathcal{D} \sbrkt{\hat \sigma^- }+\gamma_\phi \mathcal{D} \sbrkt{\hat \sigma_z} $. Теперь перейдем к рассмотрению динамики таких уравнений.
+где последнее равенство верно в силу того, что $\hat \sigma_z^2 \equiv \mathbbm{\hat 1}$. Понятно, что объединив гамильтонианы \eqref{eq:rel_model} и \eqref{eq:deph_model}, мы получим итоговое уравнение с диссипативной частью $\gamma\mathcal{D} \sbrkt{\hat \sigma^- }+\gamma_\phi \mathcal{D} \sbrkt{\hat \sigma_z} $. Теперь перейдем к рассмотрению динамики таких уравнений.
+
+
 
 \subsection{Диссипативная динамика}
 
+Качественный вид картины диссипации сильно зависит от выбранного начального состояния системы: на основное состояние диссипаторы не оказывают влияния вовсе, а, например, на возбужденное оказывает влияние только релаксация, экспоненциально ``спуская'' его по вертикальной оси сферы Блоха. 
 
+\begin{figure}[h]
+\centering
+\begin{subfigure}[t]{0.32\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Pictures/bloch_rel}
+\caption{Релаксация,\\ $\gamma = 0.1,\ \gamma_\phi = 0$}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Pictures/bloch_tot}
+\caption{Общий эффект, \\$\gamma = \gamma_\phi = 0.1$}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\centering
+\includegraphics[width=0.95\textwidth]{Pictures/bloch_deph}
+\caption{Дефазировка, \\ $\gamma = 0,\ \gamma_\phi = 0.1$}
+\end{subfigure}
+\caption{Диссипативная динамика кубита с $\nu_q$=1 ГГц.}
+\label{fig:bloch}
+\end{figure}
 
+Для состояния $\ket{+} = \frac{1}{\sqrt{2}}(\ket{e}+\ket{g})$ более интересная картина эволюции представлена на \autoref{fig:bloch}. Как видно, дефазировка уничтожает когерентность системы, т.е. приближает значение $\Tr{\hat \rho_q^2}$ к нулю, гораздо быстрее, чем релаксация.
 \chapter{Экспериментальная часть}
 \chapter{Результаты}
 \chapter{Заключение}
