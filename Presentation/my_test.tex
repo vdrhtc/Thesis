@@ -5,12 +5,15 @@
 \usepackage{sidecap}
 \usepackage{mathtools}
 \usepackage{appendixnumberbeamer}
+\usepackage{bbm}
 
-
+\newcommand{\sbrkt}[1]{\left[ #1 \right]}
 \DeclarePairedDelimiter\bra{\langle}{\rvert}
 \DeclarePairedDelimiter\ket{\lvert}{\rangle}
 \DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
 \newcommand{\rbrkt}[1]{\left( #1 \right)}
+\newcommand{\lbrkt}[1]{\left< #1 \right>}
+
 
 \graphicspath{{../Pictures/}}
 %beamer  theme's used to be here :)
@@ -18,12 +21,13 @@
 \usefonttheme[onlymath]{serif}
 
 \title{Исследование сверхпроводящих потоковых кубитов}
-\author{Федоров~Г.\quad Научный руководитель: Шульга К. (Рязанов В.В.)}
+\author{Федоров~Г. П. Группа 125. \quad Научный руководитель: Рязанов В.В.}
 \date{\today}
 
 \setlength{\jot}{15pt}
 \setbeamertemplate{footline}[page number]
 \renewcommand*{\inserttotalframenumber}{\insertpresentationendpage}
+\newcommand{\Tr}[1]{\text{Tr}\left[#1\right]}
 
 \AtBeginSection[]
 {
@@ -51,9 +55,10 @@
 \begin{columns}[c]
 \column{0.5\textwidth}
 \centering
-\includegraphics[width=0.85\textwidth]{bloch_sphere}
+\includegraphics[width=0.7\textwidth]{bloch_deph}
 
-Сфера Блоха
+\vspace{0.2cm}
+Процесс дефазировки, изображенный на сфере Блоха
 
 \column{0.5\textwidth}
 Состояние классического бита:
@@ -62,9 +67,11 @@
 \end{equation*}
 Состояние квантового бита:
 \hspace{-2cm}
-\begin{equation*}
-\ket{\psi} = a\ket{0}+b\ket{1},\ a,b \in \mathbb{C}
-\end{equation*}
+\begin{gather*}
+\hat \rho = \frac{1}{2}(\mathbbm{\hat 1} + a\hat \sigma_x+b\hat \sigma_y + c\hat \sigma_z),\ a,b,c \in \mathbb{R},\\
+a^2 + b^2 + c^2 \in [0, 1]\\
+\mathbf{r} = \rbrkt{\begin{matrix}a\\ b\\ c \end{matrix}} -\text{вектор внутри единичного шара}
+\end{gather*}
 \end{columns}
 \end{frame}
 
@@ -121,7 +128,6 @@ E_J = \frac{\hbar}{2e}I_c,\ E_C = \frac{(2e)^2}{2C}
 
 \end{frame}
 
-\subsection{Энергетический спектр Flux-кубита}
 \begin{frame}[c]\frametitle{\secname}\framesubtitle{\subsecname}
 \only<1>{
 \begin{columns}[c]
@@ -133,8 +139,8 @@ E_J = \frac{\hbar}{2e}I_c,\ E_C = \frac{(2e)^2}{2C}
 \includegraphics[width=0.7\textwidth]{qubit_levels}
 \includegraphics[width=0.307\textwidth]{spectrum_hyp}
 \begin{gather*}
-\hat{\mathcal{H}} = \frac{\varepsilon}{2}\,\hat\sigma_z + \frac{\delta}{2}\,\hat\sigma_x,\ 
-E_1 - E_0 = \sqrt{\varepsilon^2+\delta^2} \text{ -- гипербола по }\delta
+\hat{\mathcal{H}} = \frac{\hbar\Delta}{2}\,\hat\sigma_z + \frac{\hbar\varepsilon}{2}\,\hat\sigma_x,\ 
+E_1 - E_0 = \hbar\sqrt{\Delta^2+\varepsilon^2} \text{ -- гипербола по }\delta
  \\ \small{ \ket{0}_{\Phi_0/2}=\rbrkt{\begin{matrix}
 1 & 0\end{matrix}}^T,\ \ket{1}_{\Phi_0/2}=\rbrkt{\begin{matrix}
 0 & 1\end{matrix}}^T,\ \delta \propto \Phi-\Phi_0/2}
@@ -159,13 +165,29 @@ E_1 - E_0 = \sqrt{\varepsilon^2+\delta^2} \text{ -- гипербола по }\de
 \hat{\mathcal{H}}_{r} = \hbar\omega_r \hat a^+ \hat{a}, \\
 \hat{\mathcal{H}}_{i} = 
 \begin{cases} 
-g(\hat a^+ + \hat{a})\hat{\sigma}_x = g(\hat a^+ + \hat{a})(\hat\sigma^++\hat\sigma^-) \\ 
-g(\hat a \hat\sigma^- + \hat{a}\hat\sigma^+)\ \text{, в приближении}
+\hbar g(\hat a^\dag + \hat{a})\hat{\sigma}_x = \hbar g(\hat a^\dag + \hat{a})(\hat\sigma^++\hat\sigma^-) \\ 
+\hbar g(\hat a^\dag \hat\sigma^- + \hat{a}\hat\sigma^+)\ \text{-- первый порядок}
 \end{cases}
 \end{gather*}
-\hspace{1cm} -- модель Джейнса-Каммингса
+Две модели: Раби (без приближений) и Джейнса-Каммингса (приближенная)
 
 \end{columns}
+\end{frame}
+
+\subsection{Уровни энергии и спектр}
+
+\begin{frame}[c]\frametitle{\secname}\framesubtitle{\subsecname}
+\begin{columns}[c]
+\column{0.5\textwidth}
+\includegraphics[height=0.85\textheight]{Rabi_levels}
+\column{0.5\textwidth}
+\includegraphics[height=0.85\textheight]{Rabi_spectrum}
+\end{columns}
+\end{frame}
+
+\begin{frame}[c]\frametitle{\secname}\framesubtitle{\subsecname}
+\centering
+\includegraphics[width=0.7\textwidth]{Rabi_anticrossing}
 \end{frame}
 
 \section{Экспериментальные методы}
@@ -182,58 +204,190 @@ g(\hat a \hat\sigma^- + \hat{a}\hat\sigma^+)\ \text{, в приближении}
 \begin{columns}[c]
 \column{0.5\textwidth}
 
-\vspace{-1cm}
-В эксперименте фактически наблюдаются сдвиги или расщепления частот поглощения:
+В эксперименте наблюдаются сдвиги или расщепления частот поглощения:
 
-\vspace{0.5cm}
-\centering
+\vspace{0.2cm}
+\begin{center}
 \includegraphics[width=\textwidth]{frequency_shift}
+\end{center}
+
+Черные стрелки соответствуют линиям на графике пропускания
 \column{0.5\textwidth}
 \centering
-\includegraphics[height=0.85\textheight]{2tone}
+
+Иллюстрация однотоновой и двухтоновой спектроскопий:
+
+\vspace{0.2cm}
+\includegraphics[height=0.75\textheight]{2tone}
 
 \end{columns}
 }
-\section{Результаты}
-\subsection{Спектры}
-\frame{\frametitle{\secname}\framesubtitle{\subsecname}
-\vspace{0.5cm}
-\begin{columns}[c]
 
-\hspace*{-0.5cm}
+\subsection{Двухтоновая спектроскопия}
+\begin{frame}[c]\frametitle{\secname}\framesubtitle{\subsecname}
+\begin{columns}[c]
 \column{0.5\textwidth}
 \centering
-\includegraphics[width=\textwidth]{sin}
+Теория:
+
+\vspace{1cm}
+\includegraphics[width=0.9\textwidth]{two_tone}
 
 \column{0.5\textwidth}
-\includegraphics[width=\textwidth]{spectrum}
+\centering
+Эксперимент:
+
+\vspace{1cm}
+\includegraphics[width=0.9\textwidth]{sin}
+
+\end{columns}
+\end{frame}
+
+\section{Результаты}
+\subsection{Двухтоновые спектры малой мощности}
+\frame{\frametitle{\secname}\framesubtitle{\subsecname}
+
+\vspace{0.5cm}
+\begin{columns}[t]
+
+\column{0.3\textwidth}
+\centering
+Второй резонатор/кубит
+
+\vspace{0.2cm}
+\includegraphics[width=\textwidth]{two-tone_spectrum1}
+
+\column{0.3\textwidth}
+\centering
+Пятый резонатор/кубит
+
+\vspace{0.2cm}
+\includegraphics[width=\textwidth]{two-tone_spectrum3}
+
+\column{0.3\textwidth}
+\centering
+Пятый резонатор/кубит
+
+\vspace{0.2cm}
+\includegraphics[width=\textwidth]{two-tone_spectrum2}
 
 \end{columns}
 
 \vspace{0.5cm}
-Гиперболическая зависимость от $\delta\propto \Phi - \Phi_0/2$:
+Гиперболическая зависимость от $\varepsilon\propto \Phi - \Phi_0/2$:
 \centering
 \begin{equation*}
-\hbar \omega_{01} = \sqrt{\varepsilon^2+\delta^2}
+\hbar \omega_q = \hbar\sqrt{\varepsilon^2+\Delta^2}
 \end{equation*}
 }
-\subsection{Наблюдение квазипересечения уровней}
+
+
+\subsection{Двухтоновая спектроскопия большой мощности}
 \frame{\frametitle{\secname}\framesubtitle{\subsecname}
 \begin{columns}[c]
-\column{\textwidth}
+\column{0.5\textwidth}
 \centering
-\includegraphics[width=0.75\textwidth]{qintersect}
+Без вычитания фона:
+
+\vspace{0.2cm}
+\includegraphics[width=0.9\textwidth]{two-tone_spectrum_highpower}
+\column{0.5\textwidth}
+\centering
+Без фона:
+
+\vspace{0.2cm}
+\includegraphics[width=0.9\textwidth]{two-tone_spectrum_highpower_nb}
 \end{columns}
+
+\vspace{0.5cm}
+\begin{columns}[c]
+\column{0.4\textwidth}
+Обнаруживаются переходы:
+\column{0.6\textwidth}
+$\ket{0,0,g}\rightarrow\ket{0,0,e}$ -- одно- и двухфотонный
+
+$\ket{0, 0, e}\rightarrow\ket{1, 0, g}$ -- однофотонный
+
+$\ket{0, 0, g}\rightarrow\ket{1,1,e}$ -- двухфотонный
+\end{columns}
+}
+\subsection{Квазипересечения спектров (пятый кубит)}
+\frame{\frametitle{\secname}\framesubtitle{\subsecname}
+
+Спектры переходов $\ket{0}\rightarrow\ket{1}$ и $\ket{0}\rightarrow\ket{2}$:
+
+\vspace{0.5cm}
+\begin{columns}[c]
+\column{0.5\textwidth}
+\centering
+Теория:
+
+\vspace{0.2cm}
+\includegraphics[width=0.9\textwidth]{anticrossing_double1}
+\column{0.5\textwidth}
+\centering
+Эксперимент:
+
+\vspace{0.2cm}
+\includegraphics[width=0.9\textwidth]{anticrossing_double2}
+\end{columns}
+
+\begin{center}
+\vspace{0.2cm}
+Поведение исследовавшегося образца отклоняется от смоделированного поведения модели Раби в верхней ветви ($\ket{0}\rightarrow\ket{2}$).
+\end{center}
+}
+\frame{\frametitle{\secname}\framesubtitle{\subsecname}
+Увеличенный снимок левого квазипересечения:
+
+\vspace{0.5cm}
+\begin{columns}[c]
+\column{0.5\textwidth}
+\centering
+Теория:
+
+\vspace{0.2cm}
+\includegraphics[width=0.95\textwidth]{anticrossing_vanishing} 
+\column{0.5\textwidth}
+\centering
+Эксперимент:
+
+\vspace{0.2cm}
+\includegraphics[width=0.95\textwidth]{anticrossing_vanishing_exp}
+\end{columns}
+
+\vspace{0.2cm}
+\begin{center}
+Моделирование показывает, что ненаблюдаемость квазипересечения связана с малым времени жизни кубита
+\end{center}
 }
 \subsection{Нелинейные эффекты}
 \frame{\frametitle{\secname}\framesubtitle{\subsecname} 
 \begin{columns}[c]
-\column{\textwidth}
+\column{0.65\textwidth}
 \centering
-\includegraphics[width=0.75\textwidth]{LZI}
+\includegraphics[width=\textwidth]{LZI}
+\column{0.35\textwidth}
+\includegraphics[width=\textwidth]{JCM_MF}
+
 \end{columns}
 }
 
+\section{Заключение}
+
+\frame{\frametitle{\secname}\framesubtitle{Главные результаты} 
+
+\begin{enumerate}
+\item Численное моделирование широкого класса эффектов, связанных со стационарным и динамическим поведением исследуемой системы. 
+
+\item По ширине линий спектров оценены времена жизни кубитов. Изучена структура уровней исследуемой системы кубит-резонатор при проведении двухтоновой спектроскопии высокой мощности.
+
+\item Исследованы квазипересечения спектров кубита и резонатора, результаты сравнены с результатами выполненного численного моделирования.
+
+\item Проведены наблюдения нелинейных по мощности эффектов в поведении зависимости пропускания на частоте резонатора  от тока, эффекты объяснены.
+
+\end{enumerate}
+}
 
 \appendix
 
@@ -278,7 +432,86 @@ RSCJ-модель
 \end{columns}
 \end{frame}
 
-\subsection*{Энергетический спектр модели Д.-К.}
+\subsection*{Гамильтониан Раби}
+\begin{frame}[noframenumbering, c]\frametitle{\secname}\framesubtitle{\subsecname}
+
+\centering
+$\mathcal{\hat H}_R = \hat{\mathcal{H}}_{q}+\hat{\mathcal{H}}_{r}+\hat{\mathcal{H}}_{i}$
+\vspace{1cm}
+\begin{columns}[c]
+	\begin{column}{.45\textwidth}
+	\hspace{1cm}Из физической модели:
+	\begin{align*}
+	\hat{\mathcal{H}}_{q} &= \mathbbm{\hat 1}_r \otimes \left[\frac{\Delta}{2} \hat \sigma_x + 				\frac{\varepsilon}{2} \hat \sigma_z \right]\\
+	\hat{\mathcal{H}}_{r} &= \hbar \omega_r \left(\frac{1}{2}+\hat a^\dag \hat a \right) \otimes \mathbbm{\hat 1}_q\\
+	\hat{\mathcal{H}}_i &= g (\hat a^\dag + \hat a) \otimes \hat \sigma_z
+	\end{align*}
+	\end{column}
+
+	\begin{column}{0.1\textwidth}
+	{\huge $\overset{e^{i\frac{\pi}{4}\hat \sigma_y}}{\Rightarrow}$}
+	\end{column}
+	\begin{column}{.45\textwidth}
+	\hspace{1.5cm}$\hat \sigma_x$ заменен на $\hat \sigma_z$:
+	\begin{align*}
+	\hat{\mathcal{H}}_{q} &= \mathbbm{\hat 1}_r \otimes \left[\frac{\Delta}{2} \hat \sigma_z + 				\frac{\varepsilon}{2} \hat \sigma_x \right]\\
+	\hat{\mathcal{H}}_{r} &= \hbar \omega_r \left(\frac{1}{2}+\hat a^\dag \hat a \right) \otimes \mathbbm{\hat 1}_q\\
+	\hat{\mathcal{H}}_i &= g (\hat a^\dag + \hat a) \otimes \hat \sigma_x
+	\end{align*}
+	\end{column}
+
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[noframenumbering, c]\frametitle{\secname}\framesubtitle{\subsecname}
+\centering
+$\mathcal{\hat H}_R = \hat{\mathcal{H}}_{q}+\hat{\mathcal{H}}_{r}+\hat{\mathcal{H}}_{i}$
+\vspace{1cm}
+\begin{columns}[c]
+	\begin{column}{.4\textwidth}
+	\hspace{1.5cm}$\hat \sigma_x$ заменен на $\hat \sigma_z$:
+	\begin{align*}
+	\hat{\mathcal{H}}_{q} &= \mathbbm{\hat 1}_r \otimes \left[\frac{\Delta}{2} \hat \sigma_z + 				\frac{\varepsilon}{2} \hat \sigma_x \right]\\
+	\hat{\mathcal{H}}_{r} &= \hbar \omega_r \left(\frac{1}{2}+\hat a^\dag \hat a \right) \otimes \mathbbm{\hat 1}_q\\
+	\hat{\mathcal{H}}_i &= g (\hat a^\dag + \hat a) \otimes \hat \sigma_x
+	\end{align*}
+	\end{column}
+
+	\begin{column}{0.1\textwidth}	
+	{\huge $\overset{e^{i\frac{\theta}{2}\hat \sigma_y}}{\Rightarrow}$}\\
+	{\small $\tg \theta = \frac{\varepsilon}{\Delta}$}
+	\end{column}
+	
+	\begin{column}{.5\textwidth}
+	\hspace{1cm}конечная форма:
+	\begin{align*}
+	\hat{\mathcal{H}}_{q} &= \mathbbm{\hat 1}_r \otimes \frac{\hbar \omega_q}{2} \hat \sigma_z,\  \omega_q = \sqrt{\Delta^2+\varepsilon^2} \\
+	\hat{\mathcal{H}}_{r} &= \hbar \omega_r  \left(\frac{1}{2}+\hat a^\dag \hat a \right) \otimes \mathbbm{\hat 1}_q\\
+	\hat{\mathcal{H}}_i &= g (\hat a^\dag + \hat a) \otimes \left( \hat \sigma_x \sin\theta-  \hat\sigma_z \cos\theta \right)
+	\end{align*}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\subsection*{О приближениях}
+\begin{frame}[noframenumbering, c]\frametitle{\secname}\framesubtitle{\subsecname}
+
+\begin{block}{Без приближений:}
+$\mathcal{\hat H}_i = g (\hat a^\dag + \hat a) \otimes \left( \hat \sigma_x \sin\theta-  \hat\sigma_z \cos\theta \right)$
+\end{block}
+
+\begin{block}{Стандартный RWA:}
+$\mathcal{\hat H}_i = g \sin\theta \left(\hat a^\dag \otimes \hat \sigma^- + \hat a \otimes \hat \sigma^+\right) - g\cos\theta (\hat a^\dag + \hat a) \otimes \hat\sigma_z $
+\end{block}
+
+\begin{block}{Улучшенный RWA:}
+$\mathcal{\hat H}_i = g \sin\theta \left(\hat a^\dag \otimes \hat \sigma^- + \hat a \otimes \hat \sigma^+\right) $
+\end{block}
+
+\end{frame}
+
+\subsection*{Энергетический спектр модели Раби}
 \begin{frame}[c, noframenumbering]\frametitle{\secname}\framesubtitle{\subsecname}
 \begin{columns}
 \only<1>{
@@ -300,5 +533,46 @@ RSCJ-модель
 \end{columns}
 \end{frame}
 
+\subsection*{Основное уравнение и теория отклика}
+\begin{frame}[noframenumbering, c]\frametitle{\secname}\framesubtitle{\subsecname}
+\begin{columns}[c]
+
+\begin{column}{0.5\textwidth}
+Основное уравнение форме Линдблада (T $\approx$ 0):
+\begin{gather*}
+i\hbar \frac{\partial}{\partial t}\hat \rho_s = \sbrkt{\mathcal{\hat H}_s, \hat \rho_s} + \\
++ \sum_{k=1}^3 \Gamma_k \rbrkt{\mathcal{\hat O}_k \hat \rho_s \mathcal{\hat O}_k^\dag - \frac{1}{2} \left\{ \mathcal{\hat O}_k^\dag \mathcal{\hat O}_k, \hat \rho_s \right\} } \\
+\mathcal{\hat O}_1 = \hat a,\ \Gamma_1 = \kappa,\\
+\mathcal{\hat O}_2 = \hat \sigma^-,\ \Gamma_2 = \gamma, \quad 
+\mathcal{\hat O}_3 = \hat \sigma_z,\ \Gamma_3 = \gamma_\phi, \\
+\mathcal{\hat H}_s = \mathcal{\hat H}_R + \text{driving}
+\end{gather*}
+\end{column}
+\begin{column}{0.5\textwidth}
+\includegraphics[width=0.9\textwidth]{rabi_dynamics_bloch_rel}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[c]\frametitle{\secname}\framesubtitle{\subsecname}
+Теория отклика:
+\centering
+\begin{equation*}
+\mathcal{\hat H}_{tot} = \mathcal{\hat H}_{s} +\int d\omega\ \hbar \omega\, \hat b^\dag(\omega) \hat b(\omega) + \int d\omega\ [ \kappa(\omega) \hat c^{\dag} \hat b(\omega) + \kappa(\omega)\hat c \hat b^{\dag}(\omega)]
+\end{equation*}
+
+\begin{columns}[c]
+\column{0.5\textwidth}
+\begin{block}{Уравнение пропускания}
+\centering
+$\hat b_{out}= \sqrt{\gamma} \hat c,\quad \hat c \rightarrow \hat a \otimes \mathbbm{\hat 1}_q$\\
+
+\vspace{.5cm}
+$S_{21} \propto Tr\left[\hat \rho_s\ \hat a \otimes \mathbbm{\hat 1}_q\right]$
+\end{block}
+\column{0.5\textwidth}
+\includegraphics[width=0.9\textwidth]{Rabi_anticrossing_far_dyn}
+\end{columns}
+\end{frame}
 
 \end{document}
